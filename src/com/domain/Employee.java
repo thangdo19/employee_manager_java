@@ -105,15 +105,12 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "employeeID='" + employeeID + '\'' +
-                ", name='" + name + '\'' +
-                ", company='" + company + '\'' +
-                ", position='" + position + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", coefficient=" + coefficient +
-                ", gender=" + (gender?"NAM":"NU") +
-                '}';
+        return employeeID + "\t\t" +
+                name + "\t\t" +
+                company + "\t\t" +
+                position + "\t\t" +
+                dateOfBirth + "\t\t" +
+                (gender?"NAM":"NU");
     }
 
     @Override

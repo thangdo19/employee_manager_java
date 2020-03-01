@@ -7,10 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.function.Consumer;
 
 public class EmployeeManager {
     private ArrayList<Employee> list;
@@ -18,20 +16,25 @@ public class EmployeeManager {
     public EmployeeManager() {
     }
 
-    public void add(Employee employee) {
-        if (list == null)
-            list = new ArrayList<Employee>();
-        if (!list.contains(employee))
+    public boolean add(Employee employee) {
+        if (list == null) {
+            list = new ArrayList<>();
             list.add(employee);
+            return true;
+        }
+        else if (!list.contains(employee)) {
+            list.add(employee);
+            return true;
+        }
+        else return false; // list != null && list contain employee
     }
-
     public boolean remove(String id) {
-        if (this.list.contains(new Employee(id))) {
+        if (list == null) return false;
+        if (list.contains(new Employee(id))) {
             list.remove(new Employee(id));
             return true;
         }
-        else
-            return false;
+        else return false;
     }
 
     public void readFromFile(String filePath) {
@@ -57,7 +60,6 @@ public class EmployeeManager {
         }
         return date;
     }
-
     public void writeToFile(String filePath) {
         try (var writer = new FileWriter(filePath)) {
             if (list == null) return;
@@ -77,9 +79,19 @@ public class EmployeeManager {
     }
 
     public void printList() {
-        for (var e : list) {
-            System.out.println(e);
-        }
+        list.forEach(employee -> System.out.println(employee));
+        System.out.println();
+    }
+
+    public void sortAgainstPosition() {
+        // ascending
+        list.sort((Employee e1, Employee e2)
+                    -> e1.getCoefficient() - e2.getCoefficient());
+    }
+    public void sortAgainstAge() {
+        // ascending
+        list.sort((Employee e1, Employee e2)
+                    -> e1.getDateOfBirth().compareTo(e2.getDateOfBirth()));
     }
 
     @Override

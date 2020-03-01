@@ -1,6 +1,6 @@
 package com.domain;
 
-public class Date {
+public class Date implements Comparable<Date> {
     private int year;
     private int month;
     private int day;
@@ -40,5 +40,14 @@ public class Date {
     @Override
     public String toString() {
         return year + " " + month + " " + day;
+    }
+
+    @Override
+    public int compareTo(Date other) {
+        if (this.year != other.year)
+            return this.year - other.year;
+        else if (this.month != other.month)
+            return this.month - other.month;
+        else return this.day - other.day;
     }
 }
